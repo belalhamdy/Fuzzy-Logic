@@ -1,18 +1,21 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class RuleBases {
-    private enum Operator {
-        AND, OR
-    }
+
+
     Rule rule;
-    public RuleBases(){
+
+    public RuleBases() throws Exception {
         // TODO: think what it will take and update it
         rule = toRule();
     }
-    Rule toRule(){
+
+    Rule toRule() throws Exception {
         // TODO: convert the RuleBases to Rule here
-        return null;
+        return new Rule(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
+
     public double getInferenceValue() {
         return rule.getInferenceValue();
     }
@@ -20,9 +23,12 @@ public class RuleBases {
     public double getCentroidMultiplyInference() {
         return rule.getCentroidMultiplyInference();
     }
-    // converts the base into values
-    private class Rule {
 
+    // converts the base into values
+    private static class Rule {
+        private enum Operator {
+            AND, OR
+        }
 
         List<SetInstance> setInstances;
         List<Operator> operators;
@@ -52,10 +58,12 @@ public class RuleBases {
             else if (operator == Operator.OR) return Math.max(firstValue, secondValue);
             else throw new Exception("Unsupported operator or maybe its null");
         }
-        double getCentroid(){
+
+        double getCentroid() {
             // TODO: what if multiple results? centroid will be?
             return result.get(0).getCentroid();
         }
+
         double getInferenceValue() {
             return inferenceValue;
         }
