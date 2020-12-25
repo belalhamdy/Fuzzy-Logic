@@ -24,8 +24,9 @@ public class Rule {
         operators.add(op);
         variableInstances.add(instance);
     }
+
     //returns inference
-    public double applyRule(Map<String,Double> inputs) throws Exception {
+    public double applyRule(Map<String, Double> inputs) throws Exception {
         VariableInstance currVariable = variableInstances.get(0);
         double inferenceValue = currVariable.getValue(inputs.get(currVariable.getName()));
         for (int i = 1; i <= operators.size(); i++) {
