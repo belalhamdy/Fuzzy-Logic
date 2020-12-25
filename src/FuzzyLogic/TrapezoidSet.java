@@ -1,3 +1,5 @@
+package FuzzyLogic;
+
 public class TrapezoidSet extends Set {
     protected int low, mid1, mid2, high;
 

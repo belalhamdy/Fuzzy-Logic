@@ -1,3 +1,5 @@
+package FuzzyLogic;
+
 public abstract class Set {
     private String name;
 

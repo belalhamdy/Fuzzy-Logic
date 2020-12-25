@@ -1,3 +1,5 @@
+package FuzzyLogic;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,12 +7,9 @@ public class Variable {
     String name;
     List<Set> sets;
 
-    public Variable(String name, List<Set> sets){
-        this.name = name;
-        this.sets = new ArrayList<>(sets);
-    }
     public Variable(String name){
-        this(name,new ArrayList<>());
+        this.name = name;
+        this.sets = new ArrayList<>();
     }
     public void addSet(Set set) throws Exception {
         try{
