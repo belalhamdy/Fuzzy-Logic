@@ -11,7 +11,7 @@ public class Rule {
 
     private List<VariableInstance> variableInstances;
     private List<Operator> operators;
-    private Set result;
+    Set result;
 
     public Rule(VariableInstance firstVariableInstance, Set result) {
         this.variableInstances = new ArrayList<>();

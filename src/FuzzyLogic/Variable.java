@@ -35,7 +35,7 @@ public class Variable {
         for (Set currSet : sets) {
             double currVal = currSet.find(value);
             if (currVal - max > 1e-5) {
-                System.out.println(max + " -> " + currVal);
+//                System.out.println(max + " -> " + currVal);
                 max = currVal;
                 ret = currSet;
             }
