@@ -16,7 +16,7 @@ public class Variable {
         try{
             getSetByName(set.getName());
         }catch (Exception e){
-            throw new Exception("Error another set has the same " + set.name + " in the same variable " + this.name);
+            throw new Exception("Error another set has the same " + set.getName() + " in the same variable " + this.name);
         }
         sets.add(set);
     }
