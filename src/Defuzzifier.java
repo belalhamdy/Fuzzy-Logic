@@ -2,17 +2,17 @@ import java.util.List;
 
 public class Defuzzifier {
     // Takes the rules and defuzzifies them
-    List<Rule> rules;
+    List<RuleBases> ruleBases;
     double result;
 
-    public Defuzzifier(List<Rule> rules) {
-        this.rules = rules;
+    public Defuzzifier(List<RuleBases> ruleBases) {
+        this.ruleBases = ruleBases;
         setResultWithWeightedAverageMethod();
     }
 
     private void setResultWithWeightedAverageMethod() {
-        double centroidsByInference = rules.stream().mapToDouble(Rule::getCentroidMultiplyInference).sum();
-        double inferenceSum = rules.stream().mapToDouble(Rule::getInferenceValue).sum();
+        double centroidsByInference = ruleBases.stream().mapToDouble(RuleBases::getCentroidMultiplyInference).sum();
+        double inferenceSum = ruleBases.stream().mapToDouble(RuleBases::getInferenceValue).sum();
         result = centroidsByInference /inferenceSum;
     }
 
