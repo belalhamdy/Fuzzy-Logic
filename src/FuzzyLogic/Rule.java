@@ -1,9 +1,11 @@
 package FuzzyLogic;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Rule {
-    private enum Operator {
+    public enum Operator {
         AND, OR
     }
 
@@ -11,26 +13,24 @@ public class Rule {
     private List<Operator> operators;
     private Set result;
 
-    public Rule(List<VariableInstance> variableInstances, List<Operator> operators, Set result) throws Exception {
-        // for every rule we should have n sets and n-1 operators
-        if (variableInstances.size() - 1 != operators.size())
-            throw new Exception("Cannot define this rule as number of values = " + variableInstances.size() +
-                    " and number of operators = " + operators.size());
-
-        this.variableInstances = variableInstances;
-        this.operators = operators;
+    public Rule(VariableInstance firstVariableInstance, Set result) {
+        this.variableInstances = new ArrayList<>();
+        variableInstances.add(firstVariableInstance);
+        this.operators = new ArrayList<>();
         this.result = result;
     }
 
+    public void addStatement(Operator op, VariableInstance instance) {
+        operators.add(op);
+        variableInstances.add(instance);
+    }
     //returns inference
-    public double applyRule(List<Double> variableInputs) throws Exception {
-        if (variableInputs.size() != variableInstances.size())
-            throw new Exception("Number of values given = " + variableInputs.size() +
-                    "must match number of variables = " + variableInstances.size());
-
-        double inferenceValue = variableInstances.get(0).getValue(variableInputs.get(0));
+    public double applyRule(Map<String,Double> inputs) throws Exception {
+        VariableInstance currVariable = variableInstances.get(0);
+        double inferenceValue = currVariable.getValue(inputs.get(currVariable.getName()));
         for (int i = 1; i <= operators.size(); i++) {
-            double current = variableInstances.get(i).getValue(variableInputs.get(i));
+            currVariable = variableInstances.get(i);
+            double current = currVariable.getValue(inputs.get(currVariable.getName()));
             inferenceValue = infer(inferenceValue, current, operators.get(i - 1));
         }
         return inferenceValue;
@@ -42,7 +42,7 @@ public class Rule {
         else throw new Exception("Unsupported operator or maybe its null");
     }
 
-    public double getCentroid(){
+    public double getCentroid() {
         return result.getCentroid();
     }
 }

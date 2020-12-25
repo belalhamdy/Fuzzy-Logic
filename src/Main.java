@@ -1,7 +1,9 @@
 import FuzzyLogic.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,9 +24,36 @@ public class Main {
             risk.addSet(new TriangleSet("normal", 25, 50, 75));
             risk.addSet(new TriangleSet("low", 50, 100, 100));
 
-            //Rule r1 = new Rule()
+            Rule r0 = new Rule(new VariableInstance(projectFunding,"high"),risk.getSetByName("low"));
+            r0.addStatement(Rule.Operator.OR,new VariableInstance(teamExperienceLevel,"expert"));
+
+
+            Rule r1 = new Rule(new VariableInstance(projectFunding,"medium"),risk.getSetByName("normal"));
+            r1.addStatement(Rule.Operator.AND,new VariableInstance(teamExperienceLevel,"intermediate"));
+            r1.addStatement(Rule.Operator.OR,new VariableInstance(teamExperienceLevel,"beginner"));
+
+            Rule r2 = new Rule(new VariableInstance(projectFunding,"very low"),risk.getSetByName("high"));
+
+            Rule r3 = new Rule(new VariableInstance(projectFunding,"low"),risk.getSetByName("high"));
+            r3.addStatement(Rule.Operator.AND,new VariableInstance(teamExperienceLevel,"beginner"));
+
+            List<Rule> rules = new ArrayList<>();
+            rules.add(r0);
+            rules.add(r1);
+            rules.add(r2);
+            rules.add(r3);
+
+            Map<String,Double> mp = new HashMap<>();
+            mp.put("project_funding",50.0);
+            mp.put("team_experience_level",40.0);
+            FuzzyInstance fuzzyInstance = new FuzzyInstance(rules,mp);
+
+            double ans = fuzzyInstance.solve();
+            System.out.println(ans);
+            System.out.println(risk.defuzzify(ans).getName());
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
 

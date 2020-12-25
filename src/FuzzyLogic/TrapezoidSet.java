@@ -19,7 +19,7 @@ public class TrapezoidSet extends Set {
         if (value <= mid1)
             return (value - low) / (mid1 - low);
         else
-            return (value - mid2) / (high - mid2);
+            return (high - value) / (high - mid2);
     }
 
     @Override
