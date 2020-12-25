@@ -13,7 +13,7 @@ public class Defuzzifier {
     private void setResultWithWeightedAverageMethod() {
         double centroidsByInference = ruleBases.stream().mapToDouble(RuleBases::getCentroidMultiplyInference).sum();
         double inferenceSum = ruleBases.stream().mapToDouble(RuleBases::getInferenceValue).sum();
-        result = centroidsByInference /inferenceSum;
+        result = centroidsByInference / inferenceSum;
     }
 
     public double getResult() {
