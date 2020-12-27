@@ -1,4 +1,5 @@
 import FuzzyLogic.Examples;
+import FuzzyLogic.Rule;
 
 import java.util.HashMap;
 import java.util.Map;

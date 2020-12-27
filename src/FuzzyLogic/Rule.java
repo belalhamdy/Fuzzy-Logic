@@ -3,15 +3,17 @@ package FuzzyLogic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Rule {
     public enum Operator {
         AND, OR
     }
 
-    private List<VariableInstance> variableInstances;
-    private List<Operator> operators;
-    Set result;
+    private final List<VariableInstance> variableInstances;
+    private final List<Operator> operators;
+    private final Set result;
 
     public Rule(VariableInstance firstVariableInstance, Set result) {
         this.variableInstances = new ArrayList<>();
@@ -27,13 +29,14 @@ public class Rule {
 
     //returns inference
     public double applyRule(Map<String, Double> inputs) throws Exception {
-        VariableInstance currVariable = variableInstances.get(0);
-        double inferenceValue = currVariable.getValue(inputs.get(currVariable.getName()));
-        for (int i = 1; i <= operators.size(); i++) {
-            currVariable = variableInstances.get(i);
-            double current = currVariable.getValue(inputs.get(currVariable.getName()));
-            inferenceValue = infer(inferenceValue, current, operators.get(i - 1));
+        double inferenceValue = 0;
+        for (int i = 0; i <= operators.size(); i++) {
+            VariableInstance curVar = variableInstances.get(i);
+            double current = curVar.getValue(inputs.get(curVar.getName()));
+            System.out.printf("%s=%s : %.4f%n", curVar.getName(), curVar.getSetName(), current);
+            inferenceValue = infer(inferenceValue, current, i == 0 ? Operator.OR : operators.get(i - 1));
         }
+        System.out.printf("mu value for %s: %f%n%n", result.getName(), inferenceValue);
         return inferenceValue;
     }
 
