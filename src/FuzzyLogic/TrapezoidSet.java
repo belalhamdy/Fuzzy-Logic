@@ -11,6 +11,11 @@ public class TrapezoidSet extends Set {
         high = d;
     }
 
+    //Assuming a line goes through points (low, 0), (mid1, 1)
+    //Slope = 1/(mid1-low)
+    //Y-y1=Slope*(X-x1)
+    //Y=(X-low)/(mid1-low)
+    //Similar equation can be deduced for the opposite line.
     @Override
     public double find(double value) {
         if (value <= low) return low == mid1 ? 1.0 : 0.0;

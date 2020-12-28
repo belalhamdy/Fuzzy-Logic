@@ -25,7 +25,8 @@ public class RuleBuilder {
         }
     }
     Rule getRule(String text) throws Exception {
-        String pat = "^\\s*([a-zA-Z_]+)\\s*=\\s*([a-zA-Z_]+)(?:\\s+(or|and)\\s+([a-zA-Z_]+)\\s*=\\s*([a-zA-Z_]+))*\\s+(then)\\s+([a-zA-Z_]+)\\s*=\\s*([a-zA-Z_]+)";
+        //String pat = "^\\s*([a-zA-Z_]+)\\s*=\\s*([a-zA-Z_]+)(?:\\s+(or|and)\\s+([a-zA-Z_]+)\\s*=\\s*([a-zA-Z_]+))*\\s+(then)\\s+([a-zA-Z_]+)\\s*=\\s*([a-zA-Z_]+)";
+        String pat = "^\\s*(\\w+)\\s*=\\s*(\\w+)(?:\\s+(or|and)\\s+(\\w+)\\s*=\\s*(\\w+))*\\s+(then)\\s+(\\w+)\\s*=\\s*(\\w+)";
         Pattern p = Pattern.compile(pat);
         Matcher m = p.matcher(text);
         if (!m.matches()) return null;
